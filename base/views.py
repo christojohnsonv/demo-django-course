@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.views.generic.base import TemplateView
+from django.views.generic import CreateView
+
+from base.models import Course
 
 
 class CustomLoginView(LoginView):
@@ -26,5 +29,21 @@ class DashboardView(TemplateView):
 
 
 @method_decorator(login_required, name="dispatch")
-class ShortCourseView(TemplateView):
-    template_name = "shourt-course-view.html"
+class CourseListView(TemplateView):
+    template_name = "course_list.html"
+
+
+class CourseCreateView(CreateView):
+    model = Course
+    template_name = 'course_form.html'
+    fields = [
+        'title', 'subtitle', 'description', 'amount', 'image', 'is_active',
+        'details'
+    ]
+
+    def get_success_url(self) -> str:
+        return reverse('course_list')
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        return super().post(request, *args, **kwargs)

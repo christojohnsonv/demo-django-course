@@ -8,5 +8,10 @@ urlpatterns = [
         'change-password/', views.CustomPasswordChangeView.as_view(),
         name='password_change'
     ),
-    path('short-course-view/', views.ShortCourseView.as_view(), name='short-course-view')
+    path('short-courses/', views.CourseListView.as_view(), name='course_list'),
+    path(
+        'courses/create/', views.CourseCreateView.as_view(),
+        name='course_create'
+    ),
+
 ]
