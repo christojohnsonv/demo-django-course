@@ -76,7 +76,7 @@
                                                     </a>
 
                                                     <a class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#modaldemo5">
+                                                        data-bs-target="#modaldemo5{{course.id}}">
                                                         <i class="side-menu__icon fe fe-trash text-white"></i>
                                                     </a>
                                                 </td>
@@ -124,8 +124,8 @@
     <!--app-content close-->
 
 
-
-    <div class="modal  fade" id="modaldemo5" tabindex="-1" role="dialog">
+    {% for course in courses %}
+    <div class="modal  fade" id="modaldemo5{{ course.id }}" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-md modal-dialog-centered text-center" role="document">
             <div class="modal-content ">
 
@@ -138,16 +138,19 @@
                    
                 </div>
                 <div class="modal-footer justify-content-center">
-                <button class="btn btn-success">Yes</button>
-                    <button aria-label="Close" class="btn btn-danger pd-x-25" data-bs-dismiss="modal">Cancel</button>
-
-                </div>
+                <form method="post" action="/courses/{{course.id}}/delete/">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Yes</button>
+                        <button aria-label="Close" class="btn btn-danger pd-x-25" data-bs-dismiss="modal">Cancel</button>
+    
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- MESSAGE MODAL -->
-    {% for course in courses %}
+    
         <div class="modal  fade" id="description{{ course.id }}" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-md modal-dialog-centered text-center" role="document">
                 <div class="modal-content ">
@@ -165,7 +168,7 @@
             </div>
         </div>
         <!-- Course Detail  MODAL -->
-        <div class="modal  fade" id="crsdetail" tabindex="-1" role="dialog">
+        <div class="modal  fade" id="crsdetail{{ course.id }}" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg modal-dialog-centered text-center" role="document">
                 <div class="modal-content ">
     

@@ -73,4 +73,4 @@ class CourseDeleteView(DeleteView):
     context_object_name = 'course'
 
     def get_success_url(self) -> str:
-        return reverse('course-list')
+        return "/courses/"
