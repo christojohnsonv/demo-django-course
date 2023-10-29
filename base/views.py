@@ -23,3 +23,8 @@ class CustomPasswordChangeView(PasswordChangeView):
 @method_decorator(login_required, name="dispatch")
 class DashboardView(TemplateView):
     template_name = "index.html"
+
+
+@method_decorator(login_required, name="dispatch")
+class ShortCourseView(TemplateView):
+    template_name = "shourt-course-view.html"
