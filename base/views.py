@@ -55,6 +55,7 @@ class CourseCreateView(CreateView):
         return super().post(request, *args, **kwargs)
 
 
+@method_decorator(login_required, name="dispatch")
 class CourseUpdateView(UpdateView):
     model = Course
     template_name = 'course_form_edit.html'
@@ -67,6 +68,7 @@ class CourseUpdateView(UpdateView):
         return "/courses/"
 
 
+@method_decorator(login_required, name="dispatch")
 class CourseDeleteView(DeleteView):
     model = Course
     template_name = 'course_confirm_delete.html'
