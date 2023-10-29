@@ -34,6 +34,7 @@ class CourseListView(ListView):
     model = Course
     template_name = "course_list.html"
     context_object_name = 'courses'
+    paginate_by = 10
 
 
 
