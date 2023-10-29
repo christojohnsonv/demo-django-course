@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.views.generic.base import TemplateView
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
+from django_summernote.widgets import SummernoteWidget
 
 from base.models import Course
 
@@ -29,11 +30,16 @@ class DashboardView(TemplateView):
 
 
 @method_decorator(login_required, name="dispatch")
-class CourseListView(TemplateView):
+class CourseListView(ListView):
+    model = Course
     template_name = "course_list.html"
+    context_object_name = 'courses'
 
 
+
+@method_decorator(login_required, name="dispatch")
 class CourseCreateView(CreateView):
+    description = SummernoteWidget()
     model = Course
     template_name = 'course_form.html'
     fields = [
