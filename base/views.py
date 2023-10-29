@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.views.generic.base import TemplateView
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django_summernote.widgets import SummernoteWidget
 
 from base.models import Course
@@ -37,7 +37,6 @@ class CourseListView(ListView):
     paginate_by = 10
 
 
-
 @method_decorator(login_required, name="dispatch")
 class CourseCreateView(CreateView):
     description = SummernoteWidget()
@@ -54,3 +53,24 @@ class CourseCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         self.object = None
         return super().post(request, *args, **kwargs)
+
+
+class CourseUpdateView(UpdateView):
+    model = Course
+    template_name = 'course_form_edit.html'
+    fields = [
+        'title', 'subtitle', 'description', 'amount', 'image', 'is_active',
+        'details'
+    ]
+
+    def get_success_url(self) -> str:
+        return "/courses/"
+
+
+class CourseDeleteView(DeleteView):
+    model = Course
+    template_name = 'course_confirm_delete.html'
+    context_object_name = 'course'
+
+    def get_success_url(self) -> str:
+        return "/courses/"
