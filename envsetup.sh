@@ -5,6 +5,7 @@ if [-d "env"]
 then
   echo "Python virtual env exists"
 else
+  apt install python3.10-venv
   python3 -m venv venv
 fi
 
